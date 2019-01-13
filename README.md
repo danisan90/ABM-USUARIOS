@@ -1,6 +1,6 @@
 # ABM USUARIOS
 
 
-### Enunciado
+### Aplicación cliente / servidor, __con Express__
 
-Aplicación cliente / servidor, __con Express__
+
