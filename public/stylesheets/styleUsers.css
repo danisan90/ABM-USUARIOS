@@ -1,0 +1,41 @@
+body {
+  height: 100vh;
+  background-image: url(/images/backgroundUsers.jpg);
+  background-size: contain;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.container-table {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.table {
+  font-family: "Quicksand", sans-serif;
+  margin-top: 5%;
+}
+.table #edit {
+  background-color: #B2A5C2;
+  font-family: "Montserrat", sans-serif;
+  /* color: black; */
+  border-radius: 2px;
+}
+
+tr:nth-child(odd) {
+  background-color: #F9DCDC;
+}
+
+tr:nth-child(even) {
+  background-color: #F2C3D1;
+}
+
+/*  .button.is-danger.is-outlined {
+     
+ } */
+
+/*# sourceMappingURL=styleUsers.css.map */

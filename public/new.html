@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cargar Nuevo Usuario</title>
+    <link rel="icon" href="/images/island.png" type="image/gif" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="stylesheet" href="/stylesheets/styleNew.css"> 
+</head>
+<body>       
+    <div class="container" >
+    <!-- Formulario de ingreso de nuevo usuario -->
+    <form>
+         <fieldset>
+            <label class="label">Nombre</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Ingresar nombre" name="nombre" value="" maxlength="30">
+              </div>
+              <p class="help">*Maximo de 30 caracteres</p>
+            <label class="label">Apellido</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Ingresar Apellido" name="apellido" value="" maxlength="30">
+            </div>
+            <p class="help">*Maximo de 30 caracteres</p>
+            <label class="label">Telefono</label>
+                <div class="control">
+                    <input class="input" type="tel"  name="telefono" value="" >
+                </div>
+                        
+            <div class="field">
+                <label class="label">Email</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input is-danger" type="email" name="email" placeholder="Email input" value="hello@">
+                            <span class="icon is-small is-left">
+                              <i class="fas fa-envelope"></i>
+                            </span>
+                    </div>
+            </div>
+            <br><br>
+           <!--  --------------------
+            BUTTON FOR SAVE USER
+            -------------------- -->
+            
+            <div class="boton">
+
+                <button class="save-button" type="button">Guardar</button>
+            </div>
+        </fieldset>
+     </form>
+    </div>
+              
+            
+              
+            
+         
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="/javascripts/new.js"></script>
+    
+</body>
+</html>

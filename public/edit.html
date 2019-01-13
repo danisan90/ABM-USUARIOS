@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700|Montserrat:400,700" rel="stylesheet">         
+        <link rel="stylesheet" href="/stylesheets/styleEdit.css"> 
+        <link rel="icon" href="/images/wrench.png" type="image/gif" sizes="16x16">
+        <title>Editar Usuario</title>
+</head>
+<body>
+ <div class="container" >
+        <form>
+                <fieldset>
+                   <label class="label">Nombre</label>
+                   <div class="control">
+                     <input class="input" type="text" placeholder="Ingresar nombre" name="nombre"  maxlength="30">
+                   </div>
+                   <label class="label">Apellido</label>
+                   <div class="control">
+                     <input class="input" type="text" placeholder="Ingresar Apellido" name="apellido"  maxlength="30">
+                   </div>
+                   <label class="label">Telefono</label>
+                       <div class="control">
+                           <input class="input" type="tel"  name="telefono"  placeholder="Telefono"  >
+                       </div>
+                               
+                   <div class="field">
+                       <label class="label">Email</label>
+                           <div class="control has-icons-left has-icons-right">
+                               <input class="input is-danger" type="email" name="email" placeholder="Email input" value="hello@">
+                                   <span class="icon is-small is-left">
+                                     <i class="fas fa-envelope"></i>
+                                   </span>
+                           </div>
+                   </div>
+                   <br><br>
+                   <div class="boton">
+       
+                       <button class="save-button" id="btn-edit" type=button>Guardar Cambios</button>
+                       
+                   </div>
+               </fieldset>
+        </form>
+
+ </div>
+
+    
+    
+<!--     <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+ -->    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/javascripts/edit.js"></script>
+    
+</body>
+</html>

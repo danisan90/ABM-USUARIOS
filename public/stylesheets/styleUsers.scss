@@ -1,0 +1,46 @@
+$background-color-table-odd: #F9DCDC;
+$background-color-table-even: #F2C3D1;
+$edit-button-background: #B2A5C2;
+
+
+body{
+    height:100vh;
+    background-image: url(/images/backgroundUsers.jpg);
+    background-size: contain; 
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    
+}
+.container-table{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.table{
+    font-family: 'Quicksand', sans-serif;
+    margin-top: 5%;
+    #edit{
+        background-color: $edit-button-background;
+        font-family: 'Montserrat', sans-serif;
+        /* color: black; */
+        border-radius: 2px;
+
+    }
+}
+
+tr:nth-child(odd) {
+    background-color: $background-color-table-odd;
+  }
+
+tr:nth-child(even) {
+    background-color: $background-color-table-even;
+  }
+
+ /*  .button.is-danger.is-outlined {
+      
+  } */
