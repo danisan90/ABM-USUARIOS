@@ -1,6 +1,6 @@
 # ABM USUARIOS
 
 
-### Aplicación cliente / servidor, __con Express__
+### Aplicación cliente / servidor 
 
-
+Se utilizo html, jquey, js, ajax, __Express__
