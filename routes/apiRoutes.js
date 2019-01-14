@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-
+var generator = require('node-uuid-generator');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 res.send('respond with a resource');
@@ -23,7 +23,7 @@ router.get('/users', function(req, res, next) {
   res.json(users);
 });
 
-let contador = 4;
+//let contador = 4;
 
 router.get("/users/:id", (req, res) => {
   const users = JSON.parse(fs.readFileSync('users.json'));
@@ -63,7 +63,8 @@ if (newUser.apellido.length > 30) {
   return res.status(400).end('Apellido muy largo');
 }
 
-newUser.id = contador++;
+newUser.id =generator.generate();
+
 
 // agrego el usuario al array global
 users.push(newUser);
@@ -75,14 +76,17 @@ res.json(newUser);
 
 router.delete('/users/:id', function(req, res) {
   const users = JSON.parse(fs.readFileSync('users.json'));
+  const userId = parseInt(req.params.id)
+  //USO EL FILTERED USER PQ NO MODIFICA DIRECTAMENTE MI ARRAY
+  const filteredUser = users.filter((user) => user.id !== userId )
   
-  const userId = parseInt(req.params.id);
- 
-  userId.splice(users.findIndex(user => user.id == userId), 1);
+  //const userId = parseInt(req.params.id);
+ // users.splice(users.findIndex(user => user.id == userId), 1);
   
-  fs.writeFileSync('users.json', JSON.stringify(users));
+  fs.writeFileSync('users.json', JSON.stringify(filteredUser));
 
-  res.json(userId );
+
+  res.json(filteredUser);
 });
 
 module.exports = router;
