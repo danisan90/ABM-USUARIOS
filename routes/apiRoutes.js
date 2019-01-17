@@ -15,15 +15,31 @@ EN EL JSON
 ------------------------------------------ */
 
 router.get('/users', function(req, res, next) {
-  // leo el archivo todos.json y lo parseo para obtener el array
-  let contenidoDelArchivo = fs.readFileSync('users.json');
-  let users = JSON.parse( contenidoDelArchivo );
 
 
-  res.json(users);
+  const users = JSON.parse(fs.readFileSync('users.json'));
+  
+  let search = req.query.search;
+
+
+
+  // chequea si search esta definido y su longitud
+  if (search && search.length > 0){
+      search = search.toLowerCase();
+      
+      let usersFiltrados = users.filter(function (user) {
+      return user.nombre.indexOf(search) >= 0 ;
+
+    });
+
+    res.json(usersFiltrados);
+    
+   }
+
+
+  else ( res.json(users));
 });
 
-//let contador = 4;
 
 router.get("/users/:id", (req, res) => {
   const users = JSON.parse(fs.readFileSync('users.json'));
@@ -39,7 +55,6 @@ router.put("/users/:id", (req, res) =>{
     const users = JSON.parse(fs.readFileSync('users.json'));
     const idUser = parseInt(req.params.id)
     const miUser = users.find(u => u.id === idUser)
-
 
     miUser.nombre = req.body.nombre || miUser.nombre;
     miUser.apellido = req.body.apellido || miUser.apellido;
@@ -73,6 +88,38 @@ fs.writeFileSync('users.json', JSON.stringify(users));
 // le respondemos con el array de objetos
 res.json(newUser);
 });
+
+/* ------------------------------------------
+------------------------------------------
+FILTRADO
+------------------------------------------
+------------------------------------------
+ */
+
+router.get('/users', function(req, res){
+  
+ /*  const contenidoDelArchivo = JSON.parse(fs.readFileSync('users.json'));
+  let users = JSON.parse( contenidoDelArchivo );
+  const search = req.query.search;
+
+
+
+  // chequea si search esta definido y su longitud
+  if (search && search.length > 0){
+      search = search.toLowerCase();
+      
+        let usersFiltrados = users.filter(function (user) {
+      return false
+    });
+res(usersFiltrados)
+    res.json(usersFiltrados);
+    
+   }
+    */
+   res.json([]);
+
+});
+
 
 router.delete('/users/:id', function(req, res) {
   const users = JSON.parse(fs.readFileSync('users.json'));

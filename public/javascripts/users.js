@@ -13,7 +13,7 @@ CONSTRUCCION DE TABLA DE USUARIOS
 function buildTableUsers(users) {
     for (let i = 0; i < users.length; i++) {
         $tableUsers.append(`
-        <tr data-id=${users[i].id}>
+        <tr class="user-row" data-id=${users[i].id}>
             <td>${users[i].nombre}</td>
             <td>${users[i].apellido}</td>
             <td>${users[i].telefono}</td>
@@ -70,3 +70,28 @@ $(document).on("click", ".btn.delete", function() {
         $(this).parent().remove();
       });
 });
+/* -------------------------------------
+-------------------------------------
+FILTRADO 
+-------------------------------------
+------------------------------------- */
+
+$('#filter-form .button').click(function(){
+    console.log("filtrando");
+    const palabraDeBusqueda = $('#filter-form input').val();
+    console.log(palabraDeBusqueda)
+    $('#all div').remove(); 
+
+   /*   search in api */
+  
+ $.ajax('http://localhost:8080/api/users?search=' + palabraDeBusqueda)  
+    .done(function(data){
+        console.log(data)
+       
+            
+            
+           /*  console.log(buildTableUsers(data)) */
+           $('.user-row').remove();
+           buildTableUsers(data);
+    })
+})
