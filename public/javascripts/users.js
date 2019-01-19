@@ -68,7 +68,14 @@ $(document).on("click", ".btn.delete", function() {
     })
     .done(function () {
         $(this).parent().remove();
-      });
+        alert('Usuario Borrado!');
+        location.href = '/users';
+      })
+      
+    .fail(function (err) {
+        alert('Algo salio mal');
+        
+      })
 });
 /* -------------------------------------
 -------------------------------------

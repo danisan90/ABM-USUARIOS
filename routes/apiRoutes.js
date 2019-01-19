@@ -9,51 +9,59 @@ res.send('respond with a resource');
 
 /* ------------------------------------------
 ------------------------------------------
-RUTA PARA OBTENER LOS USARIOS GUARDADOS
-EN EL JSON
+FILTRADO
 ------------------------------------------
 ------------------------------------------ */
 
 router.get('/users', function(req, res, next) {
 
+const users = JSON.parse(fs.readFileSync('users.json'));
 
-  const users = JSON.parse(fs.readFileSync('users.json'));
-  
-  let search = req.query.search;
+//INICIO FILTER
+let search = req.query.search;
 
-
-
-  // chequea si search esta definido y su longitud
-  if (search && search.length > 0){
-      search = search.toLowerCase();
-      
-      let usersFiltrados = users.filter(function (user) {
-      return user.nombre.indexOf(search) >= 0 ;
-
-    });
-
-    res.json(usersFiltrados);
+// chequea si search esta definido y su longitud
+if (search && search.length > 0){
+    search = search.toLowerCase();
     
-   }
+    let usersFiltrados = users.filter(function (user) {
+    return user.nombre.indexOf(search) >= 0 
+            || user.apellido.indexOf(search) >= 0
+            || user.telefono.indexOf(search) >= 0 
+            || user.email.indexOf(search) >= 0;
+
+  });
+
+  res.json(usersFiltrados);
+  }
 
 
-  else ( res.json(users));
+else ( res.json(users));
 });
 
-
+/* ------------------------------------------
+------------------------------------------
+RECUPERO ID USUARIO
+------------------------------------------
+------------------------------------------ */
 router.get("/users/:id", (req, res) => {
-  const users = JSON.parse(fs.readFileSync('users.json'));
+const users = JSON.parse(fs.readFileSync('users.json'));
 
-  // 0) Recupero el parametro id
-  const userId = parseInt(req.params.id);
-  const user = users.find(user => user.id === userId);
-  res.json(user);
+
+const userId = (req.params.id);
+const user = users.find(user => user.id === userId);
+res.json(user);
+
 });
 
-
+/* ------------------------------------------
+------------------------------------------
+EDICION DE USUARIO
+------------------------------------------
+------------------------------------------ */
 router.put("/users/:id", (req, res) =>{
     const users = JSON.parse(fs.readFileSync('users.json'));
-    const idUser = parseInt(req.params.id)
+    const idUser = req.params.id
     const miUser = users.find(u => u.id === idUser)
 
     miUser.nombre = req.body.nombre || miUser.nombre;
@@ -66,17 +74,57 @@ router.put("/users/:id", (req, res) =>{
 
     res.json(miUser)
    })
+/* ------------------------------------------
+------------------------------------------
+FUNCION PARA VALIDAR DEL LADO DEL SERVIDOR
+------------------------------------------
+------------------------------------------ */
 
-router.post('/users', function (req, res) {
+function validationInputs(user){
+  const validarNombre = /^[a-z]{1,30}$/;
+  const validarApellido = /^[a-z]{1,30}$/;
+  const validarNumero = /^\d+$/;
+  const validarEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if(user.nombre.length > 30 || !validarNombre.test(user.nombre)){
+    return false;
+  }
+  if(user.apellido.length > 30 || !validarApellido.test(user.apellido)){
+    return false;
+  }
+  if(user.telefono.length > 30 || !validarNumero.test(user.telefono)){
+    return false;
+  }
+  if(!validarEmail.test(user.email)){
+    return false;
+  }
+}
+
+
+router.post('/users', function (req, res,) {
 const users = JSON.parse(fs.readFileSync('users.json'));
 const newUser = req.body;
 
-if (newUser.nombre.length > 30) {
-  return res.status(400).end('Nombre muy largo');
-}
-if (newUser.apellido.length > 30) {
-  return res.status(400).end('Apellido muy largo');
-}
+/*   return res.status(400).end('Valores no aceptados, lee bien!')
+ */  
+  const validarNombre = /^[a-z]{1,30}$/;
+  const validarApellido = /^[a-z]{1,30}$/;
+  const validarNumero = /^\d+$/;
+  const validarEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if(newUser.nombre.length > 30 || !validarNombre.test(newUser.nombre)){
+    return res.status(400).end('El Nombre no cumple las condiciones');
+  }
+  if(newUser.apellido.length > 30 || !validarApellido.test(newUser.apellido)){
+    return res.status(400).end('El Apellido no cumple las condiciones');
+  }
+  if(newUser.telefono.length > 30 || !validarNumero.test(newUser.telefono)){
+    return  res.status(400).end('El Telefono no cumple las condiciones');
+  }
+  if(!validarEmail.test(newUser.email)){
+    return res.status(400).end('El mail no cumple las condiciones');
+  }
+
 
 newUser.id =generator.generate();
 
@@ -87,43 +135,19 @@ fs.writeFileSync('users.json', JSON.stringify(users));
 
 // le respondemos con el array de objetos
 res.json(newUser);
+
 });
 
 /* ------------------------------------------
 ------------------------------------------
-FILTRADO
+BORRADO DE USUARIOS
 ------------------------------------------
 ------------------------------------------
  */
-
-router.get('/users', function(req, res){
-  
- /*  const contenidoDelArchivo = JSON.parse(fs.readFileSync('users.json'));
-  let users = JSON.parse( contenidoDelArchivo );
-  const search = req.query.search;
-
-
-
-  // chequea si search esta definido y su longitud
-  if (search && search.length > 0){
-      search = search.toLowerCase();
-      
-        let usersFiltrados = users.filter(function (user) {
-      return false
-    });
-res(usersFiltrados)
-    res.json(usersFiltrados);
-    
-   }
-    */
-   res.json([]);
-
-});
-
-
 router.delete('/users/:id', function(req, res) {
   const users = JSON.parse(fs.readFileSync('users.json'));
-  const userId = parseInt(req.params.id)
+  const userId = req.params.id
+
   //USO EL FILTERED USER PQ NO MODIFICA DIRECTAMENTE MI ARRAY
   const filteredUser = users.filter((user) => user.id !== userId )
   

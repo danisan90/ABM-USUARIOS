@@ -17,10 +17,10 @@ $('#btn-edit').on('click',function() {
     //vamos a hacer un put, osea que edite algo SIEMPRE QUE EDITE VOY A TENER UN PUT
     // el ajax tiene que tomar el id del metodo que quiero editar
     const editedUser = {
-        nombre: $nombre.val(),
-        apellido: $apellido.val(),
+        nombre: $nombre.val().toLowerCase(),
+        apellido: $apellido.val().toLowerCase(),
         telefono: $telefono.val(),
-        email: $email.val()
+        email: $email.val().toLowerCase()
     }
     $.ajax(`http://localhost:8080/api/users/${id}`, {
         //ahora le digo que metodo quiero hacer
@@ -29,7 +29,7 @@ $('#btn-edit').on('click',function() {
     })
     .done(function () {
         
-        alert('todo editado')
+        alert('Usuario editado')
         location.href = "/users"
     })
     

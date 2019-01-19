@@ -1,8 +1,8 @@
 $('.save-button').click(function () {
-    const nombre = $('input[name="nombre"]').val();
-    const apellido = $('input[name="apellido"]').val();
+    const nombre = $('input[name="nombre"]').val().toLowerCase();
+    const apellido = $('input[name="apellido"]').val().toLowerCase();
     const telefono = $('input[name="telefono"]').val();
-    const email = $('input[name="email"]').val();
+    const email = $('input[name="email"]').val().toLowerCase();
   
 
     const validarNombre = /^[a-z]{1,30}$/;
@@ -11,19 +11,19 @@ $('.save-button').click(function () {
   
     
       if (validarNombre.test(nombre) === false) {
-        alert('El nombre es muy largo amewo');
+        alert('El nombre es muy largo!!');
         return;
       }
     
     
     // el texto cumple con la expresion regular, .test() retorna true
     if (validarNumero.test(telefono) === false) {
-      alert('el fono tienen que ser solo numeros');
+      alert('El telefono no es valido');
       return;
     }
   
     if (validarEmail.test(email) === false) {
-      alert('mandaste fruta con el email');
+      alert('Email no valido, por favor intente de nuevo');
       return;
     }
   
@@ -43,7 +43,7 @@ $('.save-button').click(function () {
       location.href = '/users';
     })
     .fail(function (err) {
-      alert('salio mal');
+      alert('Algo salio mal al crear el usuario');
       console.log('salio todo mal: ', err);
     })
   });
